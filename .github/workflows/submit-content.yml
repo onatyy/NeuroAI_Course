@@ -8,8 +8,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Check SME
-        run: echo "You are ${{ github.actor }}"
+        run: |
+          if ! grep -Fxq "${{ github.actor }}" .github/smes.txt; then
+            echo "❌ You are not authorized to submit content."
+            exit 1
+          fi
+
+          echo "✅ ${{ github.actor }} is an approved SME."
 
       - name: Submit
         run: echo "Content submitted!"
