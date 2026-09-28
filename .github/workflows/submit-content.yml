@@ -5,7 +5,7 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
+  pull-requests: read
 
 jobs:
   submit:
@@ -24,13 +24,7 @@ jobs:
 
           echo "✅ ${{ github.actor }} is an approved SME."
 
-      - name: Create Pull Request
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Submit
         run: |
-          gh pr create \
-            --repo neuromatch/NeuroAI_Course \
-            --base main \
-            --head onatyy:main \
-            --title "Content submission by ${{ github.actor }}" \
-            --body "Automated content submission from ${{ github.actor }}."
+          echo "✅ Content submitted."
+          echo "The existing PR will be updated automatically from this branch."
